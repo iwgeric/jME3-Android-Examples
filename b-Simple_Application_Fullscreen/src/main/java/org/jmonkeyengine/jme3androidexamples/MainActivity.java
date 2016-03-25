@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     /*
-    For jME games, it is probably best to use the IMMERSIVE_STICKY mode.  Simply set the system
-    flags as shown below and the layout contents defined above will be shown "full screen".
-    Swiping down from the top of the screen will temporarily show the navigation and status
-    bars.
+    For jME games that do not use Android UI controls, it is probably best to use the
+    IMMERSIVE_STICKY mode.  Simply set the system flags as shown below and the layout contents
+    defined above will be shown "full screen".  Swiping down from the top of the screen will
+    temporarily show the navigation and status bars.
      */
 
     @Override
