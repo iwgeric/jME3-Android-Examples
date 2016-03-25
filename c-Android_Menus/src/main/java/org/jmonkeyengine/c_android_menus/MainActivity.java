@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements JmeAndroidInterfa
         return true;
     }
 
+    // set the enable/disable state of the menu item based on the current color
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
         boolean matchesCurrentColor;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements JmeAndroidInterfa
         return true;
     }
 
+    // called from the game logic to disable the menu selection for the current color
     @Override
     public void disableColorOption(ColorRGBA color) {
         currentColor = color;
