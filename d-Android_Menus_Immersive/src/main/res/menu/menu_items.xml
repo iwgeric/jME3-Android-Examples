@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.jmonkeyengine.d_android_menus_immersive.MainActivity">
+
+    <!--
+    This menu should show up as 3 icons in the app toolbar.
+    -->
+
+    <item
+        android:id="@+id/action_red"
+        android:orderInCategory="100"
+        android:icon="@mipmap/redmonkey"
+        android:title="Change to Red"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_green"
+        android:orderInCategory="200"
+        android:icon="@mipmap/greenmonkey"
+        android:title="Change to Green"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_blue"
+        android:orderInCategory="300"
+        android:icon="@mipmap/bluemonkey"
+        android:title="Change to Blue"
+        app:showAsAction="ifRoom" />
+</menu>

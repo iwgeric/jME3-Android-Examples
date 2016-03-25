@@ -1,1 +1,1 @@
-include ':a-Simple_Application', ':wear', ':b-Simple_Application_Fullscreen', ':c-Android_Menus'
+include ':a-Simple_Application', ':wear', ':b-Simple_Application_Fullscreen', ':c-Android_Menus', ':d-Android_Menus_Immersive'

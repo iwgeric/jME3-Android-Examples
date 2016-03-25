@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="false"
+    tools:context="org.jmonkeyengine.d_android_menus_immersive.MainActivity">
+
+<!--
+To support IMMERSIVE mode, we need to have 2 child layouts.
+
+1 fullscreen layout (fitsSystemWindows=false) that takes the entire
+screen space even if the system ui and toolbar are showing.  We use this layout for the jME
+fragment that displays the jME game.
+
+The other layout is shifted down by the padding required
+for the system ui (fitsSystemWindows=true).  We use this layout for the app toolbar, menus, and
+floating action button (FAB) so they allow for the space required for the system status bar and
+navigation bar (if present).
+-->
+
+    <FrameLayout
+        android:id="@+id/fullscreenLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
+
+        <fragment
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:name="org.jmonkeyengine.d_android_menus_immersive.JmeFragment"
+            android:id="@+id/jMEFragment"
+            />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/reducedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_email" />
+
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
