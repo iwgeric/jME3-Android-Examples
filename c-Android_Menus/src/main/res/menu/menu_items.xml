@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_red"
         android:orderInCategory="100"
-        android:icon="@mipmap/ic_launcher"
-        android:title="Change to Red"/>
+        android:title="Change to Red"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_green"
         android:orderInCategory="200"
-        android:icon="@mipmap/smartmonkey"
-        android:title="Change to Green"/>
+        android:title="Change to Green"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_blue"
         android:orderInCategory="300"
-        android:icon="@mipmap/smartmonkey"
-        android:title="Change to Blue"/>
-
+        android:title="Change to Blue"
+        app:showAsAction="never" />
 </menu>
