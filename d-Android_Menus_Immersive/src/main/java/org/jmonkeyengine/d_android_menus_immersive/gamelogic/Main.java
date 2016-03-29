@@ -80,7 +80,6 @@ public class Main extends SimpleApplication implements TouchListener {
      */
     @Override
     public void onTouch(String name, TouchEvent event, float tpf) {
-        logger.log(Level.INFO, "Touch Type: {0}", event.getType());
         if (event.getType().equals(TouchEvent.Type.TAP)) {
             if (android != null) {
                 android.toggleMenus();
