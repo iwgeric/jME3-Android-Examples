@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="org.jmonkeyengine.e_android_uif.MainActivity">
+
+    <!--
+        To support IMMERSIVE mode, we need to have 2 child layouts.
+
+        1 fullscreen layout (fitsSystemWindows=false) that takes the entire
+        screen space even if the system ui and toolbar are showing.  We use this layout for the jME
+        fragment that displays the jME game and the Android UIF controls.
+
+        The other layout is shifted down by the padding required
+        for the system ui (fitsSystemWindows=true).  We use this layout for the app toolbar, menus, and
+        floating action button (FAB) so they allow for the space required for the system status bar and
+        navigation bar (if present).
+        -->
+
+    <FrameLayout
+        android:id="@+id/fullscreenLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|start"
+            android:name="org.jmonkeyengine.e_android_uif.JmeFragment"
+            android:id="@+id/jMEFragment"
+            />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/reducedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <!--
+        place the UIF button in this layout so that they do not get covered up by the
+        system ui status bar or the app toolbar when they are visible.
+        -->
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/toolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/toolbarLayout"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="25dp">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/redButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/redButtonText"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/greenButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/greenButtonText"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/blueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blueButtonText"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_email" />
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

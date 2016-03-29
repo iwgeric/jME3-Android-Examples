@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">jME3 Android UIF</string>
+    <string name="redButtonText">Red</string>
+    <string name="greenButtonText">Green</string>
+    <string name="blueButtonText">Blue</string>
+</resources>
