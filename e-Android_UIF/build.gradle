@@ -27,6 +27,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.1.1'
 
+    // The following dependencies are for the jMonkeyEngine libraries.
+
     compile "org.jmonkeyengine:jme3-android:$jmeVersion"
     compile "org.jmonkeyengine:jme3-android-native:$jmeVersion"
     compile "org.jmonkeyengine:jme3-core:$jmeVersion"
@@ -34,10 +36,10 @@ dependencies {
     compile "org.jmonkeyengine:jme3-jogg:$jmeVersion"
     compile "org.jmonkeyengine:jme3-plugins:$jmeVersion"
 
-    // below is only when using Lemur as UI
+    // Include the following dependancy when using Lemur as UI
     //compile 'com.simsilica:lemur:[1.6,)'
 
-    // below is only when using Physics libs
+    // Include the following dependencies when using Physics in the jME application
     //compile "org.jmonkeyengine:jme3-bullet:$jmeVersion"
     //compile "org.jmonkeyengine:jme3-bullet-native-android:$jmeVersion"
     //compile "org.jmonkeyengine:jme3-terrain:$jmeVersion"
