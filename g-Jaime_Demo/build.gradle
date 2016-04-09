@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "org.jmonkeyengine.g_jaime_demo"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+ext.jmeVersion = "[3.1,)"
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
+
+
+    // The following dependencies are for the jMonkeyEngine libraries.
+
+    compile "org.jmonkeyengine:jme3-android:$jmeVersion"
+//    compile files('../../jmonkeyengine/jme3-android/build/libs/jme3-android-3.1.0-SNAPSHOT.jar')
+    compile "org.jmonkeyengine:jme3-android-native:$jmeVersion"
+//    compile files('../../jmonkeyengine/jme3-android-native/build/libs/jme3-android-native-3.1.0-SNAPSHOT.jar')
+    compile "org.jmonkeyengine:jme3-core:$jmeVersion"
+    compile "org.jmonkeyengine:jme3-effects:$jmeVersion"
+    compile "org.jmonkeyengine:jme3-jogg:$jmeVersion"
+    compile "org.jmonkeyengine:jme3-plugins:$jmeVersion"
+
+    // Include the following dependancy when using Lemur as UI
+    compile 'com.simsilica:lemur:[1.6,)'
+
+    // Include the following dependencies when using Physics in the jME application
+    compile "org.jmonkeyengine:jme3-bullet:$jmeVersion"
+    compile "org.jmonkeyengine:jme3-bullet-native-android:$jmeVersion"
+    compile "org.jmonkeyengine:jme3-terrain:$jmeVersion"
+
+}
