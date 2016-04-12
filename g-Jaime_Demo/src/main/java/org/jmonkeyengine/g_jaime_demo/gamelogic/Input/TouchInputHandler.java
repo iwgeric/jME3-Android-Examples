@@ -50,17 +50,30 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
     private float maxRotation = 1f;
     private float[] camAngles = new float[3];
 
-
+    /**
+     * Main constructor that passes in the main spatial that contains the character control.  Touch
+     * events from the dpad will send motion commands to the character control found in this spatial.
+     * @param character Spatial that contains the physics character control.
+     */
     public TouchInputHandler(Spatial character) {
         camera = findChaseCamera(character);
         phyControl = findCharacterControl(character);
     }
 
+    /**
+     * Method to change the spatial that contains the physics character control.
+     * @param character Spatial that contains the physics character control.
+     */
     public void setCharacter(Spatial character) {
         camera = findChaseCamera(character);
         phyControl = findCharacterControl(character);
     }
 
+    /**
+     * When initialize is called by the engine, store references, create the inputManager touch
+     * trigger to receive touch events, and initialize the dpad.
+     * @param app
+     */
     @Override
     protected void initialize(Application app) {
         this.inputManager = app.getInputManager();
@@ -74,6 +87,11 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
 
     }
 
+    /**
+     * When cleanup is called by the engine, remove the dpad from the scene and remove the inputManager
+     * mapping.
+     * @param app
+     */
     @Override
     protected void cleanup(Application app) {
         if (dpad != null) {
@@ -83,6 +101,10 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         app.getInputManager().deleteMapping("TouchInputHandler");
     }
 
+    /**
+     * When onEnable is called by the engine, display the dpad and add the listener to inputManager
+     * to receive the touch events.
+     */
     @Override
     protected void onEnable() {
         if (dpad != null) {
@@ -91,6 +113,10 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         inputManager.addListener(this, "TouchInputHandler");
     }
 
+    /**
+     * When onDisable is called by the engine, remove the dpad display and remove the touch listener
+     * from inputManager.
+     */
     @Override
     protected void onDisable() {
         if (dpad != null) {
@@ -99,6 +125,11 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         inputManager.removeListener(this);
     }
 
+    /**
+     * During update, set the walkDirection and viewDirection based on the dpad settings calculated
+     * during the last touch event.
+     * @param tpf
+     */
     @Override
     public void update(float tpf) {
         super.update(tpf);
@@ -125,6 +156,14 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         }
     }
 
+    /**
+     * onTouch is called by the engine during touch events.  Here is where we calculate the character
+     * motion and facing direction if the touch event is related to the dpad.  If not, then the
+     * touch event is treated as a request to rotate the camera view.
+     * @param name
+     * @param event
+     * @param tpf
+     */
     @Override
     public void onTouch(String name, TouchEvent event, float tpf) {
 //        logger.log(Level.INFO, "onTouch type:{0}, pointer: {1}, X: {2}, Y: {3}, phyControl: {4}, camera: {5}",
@@ -185,6 +224,14 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
 
     }
 
+    /**
+     * Method to initialize the dpad image.  The SelectablePicture class is used to allow for some
+     * convenience methods for determining motion speed and direction based on the touch location
+     * relative to the center of the dpad.
+     * @param assetManager
+     * @param screenWidth
+     * @param screenHeight
+     */
     private void initDpad(AssetManager assetManager, int screenWidth, int screenHeight) {
         // Size the dpad image to be 50% of the smallest dimension
         // (width or height based on screen orientation)
@@ -204,6 +251,11 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         dpad.setLocalTranslation(0f, 0f, zDepth); // set location of bottom-left corner of pic to bottom-left of screen
     }
 
+    /**
+     * Method to search the spatial and all its children (if any exist) for a CustomChaseCamera control.
+     * @param spatial Spatial to search (and its children if a Node)
+     * @return CustomChaseCamera control found
+     */
     private CustomChaseCamera findChaseCamera(Spatial spatial) {
         if (spatial == null) {
             return null;
@@ -226,6 +278,12 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         return chaseCameras.get(0);
     }
 
+    /**
+     * Method to search a spatial (and all its children if a Node) for a physics BetterCharacterControl.
+     * Used to set motion speed, direction, and facing direction of the character.
+     * @param spatial Spatial to search (and its children if a Node)
+     * @return BetterCharacterControl found.
+     */
     private BetterCharacterControl findCharacterControl(Spatial spatial) {
         if (spatial == null) {
             return null;
