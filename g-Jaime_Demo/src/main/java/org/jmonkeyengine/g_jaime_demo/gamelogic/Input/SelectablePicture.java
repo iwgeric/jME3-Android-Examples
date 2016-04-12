@@ -12,7 +12,7 @@ import com.jme3.ui.Picture;
  * @author iwgeric
  */
 public class SelectablePicture extends Picture {
-    private int pointerID = -1;
+    private Integer pointerID = null;
 
     public SelectablePicture(String name, boolean flipY) {
         super(name, flipY);
@@ -57,18 +57,18 @@ public class SelectablePicture extends Picture {
     }
 
     /**
-     * Retrieve the pointerID that was used during the Down Event (Default: -1 for none)
+     * Retrieve the pointerID that was used during the Down Event (null = none)
      * @return
      */
-    public int getActivePointer() {
+    public Integer getActivePointer() {
         return pointerID;
     }
 
     /**
-     * Set the pointerID to use.  Use -1 to indicate no pointer is active.
+     * Set the pointerID to use.  null = no pointer is active.
      * @param pointerID
      */
-    public void setActivePointer(int pointerID) {
+    public void setActivePointer(Integer pointerID) {
         this.pointerID = pointerID;
     }
 
