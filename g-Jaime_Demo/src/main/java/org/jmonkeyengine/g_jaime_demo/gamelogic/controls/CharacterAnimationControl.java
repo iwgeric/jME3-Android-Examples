@@ -17,7 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * jME Control that manages the animation of a spatial that has a BetterCharacterControl attached.
+ * This control will search the spatial for a BetterCharacterControl and a AnimControl.  Once found
+ * this control will look at the speed the character is moving and adjust the animation to match.
  */
 public class CharacterAnimationControl extends AbstractControl {
     private static final Logger logger = Logger.getLogger(CharacterAnimationControl.class.getName());
@@ -131,6 +133,11 @@ public class CharacterAnimationControl extends AbstractControl {
     }
 
 
+    /**
+     * Search the spatial (and all its children if any exist) for BetterCharacterControls.
+     * @param spatial Spatial to search (including children if a Node)
+     * @return List of BetterCharacterControls found.
+     */
     private List<BetterCharacterControl> findCharacterControls(Spatial spatial) {
         final List<BetterCharacterControl> charControls = new ArrayList<BetterCharacterControl>();
         spatial.breadthFirstTraversal(new SceneGraphVisitor() {
@@ -147,6 +154,11 @@ public class CharacterAnimationControl extends AbstractControl {
 
     }
 
+    /**
+     * Search the spatial (and all its children if any exist for an AnimControl for animation.
+     * @param spatial Spatial to search (including children if a Node)
+     * @return List of AnimControls found.
+     */
     private List<AnimControl> findAnimationControls(Spatial spatial) {
         final List<AnimControl> animControls = new ArrayList<AnimControl>();
         spatial.breadthFirstTraversal(new SceneGraphVisitor() {
@@ -163,6 +175,11 @@ public class CharacterAnimationControl extends AbstractControl {
 
     }
 
+    /**
+     * Search the spatial (and all its children if any exist for a SkeletonControl.
+     * @param spatial Spatial to search (including children if a Node)
+     * @return List of SkeletonControls found.
+     */
     private List<SkeletonControl> findSkeletonControls(Spatial spatial) {
         final List<SkeletonControl> skeletonControls = new ArrayList<SkeletonControl>();
         spatial.breadthFirstTraversal(new SceneGraphVisitor() {
@@ -178,6 +195,5 @@ public class CharacterAnimationControl extends AbstractControl {
         return skeletonControls;
 
     }
-
 
 }
