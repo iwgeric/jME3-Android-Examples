@@ -23,6 +23,15 @@ public class CharacterAnimationControl extends AbstractControl {
     private static final Logger logger = Logger.getLogger(CharacterAnimationControl.class.getName());
     private BetterCharacterControl characterPhysicsControl = null;
     private AnimChannel animChannel = null;
+    private float runSpeed = 1f;
+
+    /**
+     * Set the speed at which the animation control changes from Walk to Run animation.
+     * @param runSpeed Speed at which the animation control changes between Walk and Run.
+     */
+    public void setRunSpeed(int runSpeed) {
+        this.runSpeed = runSpeed;
+    }
 
     public void setSpatial(Spatial spatial) {
         if (spatial == null) {
@@ -100,7 +109,7 @@ public class CharacterAnimationControl extends AbstractControl {
     @Override
     protected void controlUpdate(float tpf) {
 
-        if (characterPhysicsControl.getWalkDirection().length() > 5) {
+        if (characterPhysicsControl.getWalkDirection().length() > runSpeed) {
             if (!"Run".equals(animChannel.getAnimationName())) {
                 animChannel.setAnim("Run");
             }
