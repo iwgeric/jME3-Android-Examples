@@ -4,6 +4,11 @@ package org.jmonkeyengine.g_jaime_demo.gamelogic.assetloader;
 import com.jme3.app.Application;
 
 /**
+ * Interface to define a loadable task.  Used to allow for objects to be loaded asynchronously
+ * in a separate thread.  The LoadTask is added to the AsyncAssetLoader and is called by the loader
+ * to load the object.  Once loading is complete, the onDoneLoading method is called to allow
+ * for post load processing.  The onDoneLoading method is called from the main render thread so
+ * the object can be pre-loaded and/or added to the scene graph.
  *
  * @author iwgeric
  */

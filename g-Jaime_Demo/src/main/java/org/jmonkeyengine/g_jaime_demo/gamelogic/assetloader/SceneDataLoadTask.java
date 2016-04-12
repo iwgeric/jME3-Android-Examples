@@ -24,6 +24,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Implementation of LoadTask to load the scene and Jaime character.  Creates the physics controls
+ * on the separate thread, but adds the controls to the physicsSpace during onLoadComplete from the
+ * main render thread.  The OpenGL data is also pre-loaded from the main render thread to avoid
+ * hesitations when the objects are eventually added to the scene graph.
  *
  */
 public class SceneDataLoadTask implements LoadTask {

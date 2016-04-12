@@ -33,16 +33,29 @@ public class AsyncAssetLoader extends BaseAppState {
 
     public AsyncAssetLoader() {}
 
+    /**
+     * Method to determine if all load tasks have been completed.
+     * @return True when all load tasks are complete.
+     */
     public boolean isAllLoaded() {
         return future == null && loadDataQueue.isEmpty();
     }
 
+    /**
+     * Add a load task to the queue.  isAllLoaded immediately goes false until the task
+     * (and all other tasks) have completed.
+     * @param loadTask
+     */
     public void addLoadData(LoadTask loadTask) {
         logger.log(Level.INFO, "adding load task: {0}", loadTask);
         loadDataQueue.add(loadTask);
     }
 
 
+    /**
+     * Creates a Callable to get the next load task in the queue and calls the load method.
+     * This is meant to be run in its own thread.
+     */
     private void createFuture() {
         Callable<LoadTaskResult> loadTaskCallable = new Callable<LoadTaskResult>() {
 
@@ -69,7 +82,6 @@ public class AsyncAssetLoader extends BaseAppState {
 
     @Override
     protected void initialize(Application app) {
-
     }
 
     @Override
@@ -128,6 +140,9 @@ public class AsyncAssetLoader extends BaseAppState {
 
     }
 
+    /**
+     * Internal data storage class to store the load task and the loaded object.
+     */
     protected class LoadTaskResult {
         private final LoadTask loadTask;
         private final Object loadResult;
