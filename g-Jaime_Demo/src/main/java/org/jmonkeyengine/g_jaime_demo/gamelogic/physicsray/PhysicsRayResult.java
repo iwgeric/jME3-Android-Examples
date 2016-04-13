@@ -21,6 +21,12 @@ public class PhysicsRayResult implements Comparable<PhysicsRayResult> {
     private float distance;
     private PhysicsCollisionObject collisionObject;
 
+    /**
+     * Stores a collision result along with the ray used.
+     *
+     * @param ray Ray used
+     * @param testResult Ray test result from physics
+     */
     public PhysicsRayResult(PhysicsRay ray, PhysicsRayTestResult testResult) {
         this.collisionObject = testResult.getCollisionObject();
         Object object = collisionObject.getUserObject();
@@ -40,10 +46,23 @@ public class PhysicsRayResult implements Comparable<PhysicsRayResult> {
 
     }
 
+    /**
+     * Used to test the distance to this result compared to another result.
+     * @param other Other RayTestResult
+     * @return Returns the Float.compare result between the 2 distances.  0 = equal distance.
+     *         >0 when this distance is greater than the other distance. <0 when this distance is
+     *         less than the other distance.
+     */
     public int compareTo(PhysicsRayResult other) {
         return Float.compare(distance, other.distance);
     }
 
+    /**
+     * Tests for equality between this result and another result.  Results are equal when the
+     * distance is equal.
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof PhysicsRayResult){
@@ -52,22 +71,42 @@ public class PhysicsRayResult implements Comparable<PhysicsRayResult> {
         return super.equals(obj);
     }
 
+    /**
+     * Retrieves the contact point for this ray test result
+     * @return Contact Point of ray result
+     */
     public Vector3f getContactPoint() {
         return contactPoint;
     }
 
+    /**
+     * Retrieves the contact normal of the ray result to the collision object
+     * @return Contact normal of the collision object
+     */
     public Vector3f getContactNormal() {
         return contactNormal;
     }
 
+    /**
+     * Retrieves the distance from the ray start to the collision object
+     * @return Distance from the ray start to the collision object
+     */
     public float getDistance() {
         return distance;
     }
 
+    /**
+     * Spatial tied to the collision object
+     * @return Spatial tied to the collision object
+     */
     public Spatial getSpatial() {
         return spatial;
     }
 
+    /**
+     * Retieves the collision object tied to this ray test result
+     * @return Collision object tied to this ray test result
+     */
     public PhysicsCollisionObject getCollisionObject() {
         return collisionObject;
     }

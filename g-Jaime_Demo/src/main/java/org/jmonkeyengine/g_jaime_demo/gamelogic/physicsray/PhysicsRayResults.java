@@ -39,15 +39,27 @@ public class PhysicsRayResults implements Iterable<PhysicsRayResult> {
         return results.iterator();
     }
 
+    /**
+     * Add a result to the list
+     * @param result
+     */
     public void addResult(PhysicsRayResult result){
         results.add(result);
         sorted = false;
     }
 
+    /**
+     * Returns the size of the list of results
+     * @return
+     */
     public int size(){
         return results.size();
     }
 
+    /**
+     * Returns the result that has the smallest distance
+     * @return
+     */
     public PhysicsRayResult getClosestResult(){
         if (size() == 0)
             return null;
@@ -60,6 +72,10 @@ public class PhysicsRayResults implements Iterable<PhysicsRayResult> {
         return results.get(0);
     }
 
+    /**
+     * Returns the result with the largest distance
+     * @return
+     */
     public PhysicsRayResult getFarthestResult(){
         if (size() == 0)
             return null;
@@ -72,6 +88,11 @@ public class PhysicsRayResults implements Iterable<PhysicsRayResult> {
         return results.get(size()-1);
     }
 
+    /**
+     * Returns the result at the given index into the list
+     * @param index
+     * @return
+     */
     public PhysicsRayResult getResult(int index){
         if (!sorted){
             Collections.sort(results);

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Helper class for getting collision information for a physics ray
  *
  * @author iwgeric
  */
