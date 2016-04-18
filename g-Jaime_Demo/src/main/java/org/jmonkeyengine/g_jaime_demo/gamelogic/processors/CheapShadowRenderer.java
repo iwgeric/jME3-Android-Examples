@@ -9,11 +9,14 @@ import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.GeometryList;
+import com.jme3.renderer.queue.OpaqueComparator;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.VertexBuffer.Type;
+import com.jme3.shadow.ShadowUtil;
 import com.jme3.texture.FrameBuffer;
 
 import java.util.ArrayList;
@@ -58,20 +61,24 @@ public class CheapShadowRenderer implements SceneProcessor {
 
         shadowNode.detachAllChildren();
 
+        GeometryList list2 = new GeometryList(new OpaqueComparator());
+        for (Spatial scene : vp.getScenes()) {
+            ShadowUtil.getGeometriesInCamFrustum(scene, vp.getCamera(), RenderQueue.ShadowMode.Cast, list2);
+        }
 //        GeometryList list2 = rq.getShadowQueueContent(RenderQueue.ShadowMode.Cast);
-//        for (int i = 0; i < list2.size(); i++) {
-//            Geometry g = list2.get(i);
-//            Geometry shadow = getShadow(g);
-//            shadowNode.attachChild(shadow);
-//            shadow.setLocalTranslation(g.getWorldTranslation());
-//
-//            float size = Math.min(g.getModelBound().getVolume() * g.getWorldScale().x, 10) / 6f;
-//            ColorRGBA c = (ColorRGBA) shadow.getMaterial().getParam("Color").getValue();
-//            c.a = FastMath.clamp((0.9f - (g.getWorldBound().getCenter().y) * 0.08f) * size, 0.0f, 1.0f);
-//
-//            shadow.setLocalScale(getMaxExtent(g) * 2f);
-//            shadow.getMaterial().setColor("Color", c);
-//        }
+        for (int i = 0; i < list2.size(); i++) {
+            Geometry g = list2.get(i);
+            Geometry shadow = getShadow(g);
+            shadowNode.attachChild(shadow);
+            shadow.setLocalTranslation(g.getWorldTranslation());
+
+            float size = Math.min(g.getModelBound().getVolume() * g.getWorldScale().x, 10) / 6f;
+            ColorRGBA c = (ColorRGBA) shadow.getMaterial().getParam("Color").getValue();
+            c.a = FastMath.clamp((0.9f - (g.getWorldBound().getCenter().y) * 0.08f) * size, 0.0f, 1.0f);
+
+            shadow.setLocalScale(getMaxExtent(g) * 2f);
+            shadow.getMaterial().setColor("Color", c);
+        }
         for (Geometry geom : shadows.keySet()) {
 
             Geometry shadow = shadows.get(geom);
