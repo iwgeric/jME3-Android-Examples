@@ -33,6 +33,7 @@ public class CheapShadowRenderer implements SceneProcessor {
     private ViewPort vp;
     private Map<Geometry, Geometry> shadows = new ConcurrentHashMap<Geometry, Geometry>();
     private List<Geometry> shadowPool = new ArrayList<Geometry>();
+    private GeometryList castersList = new GeometryList(new OpaqueComparator());
     private Material shadowMaterial;
     private Node shadowNode = new Node("Shadows");
     private Mesh q;
@@ -58,16 +59,14 @@ public class CheapShadowRenderer implements SceneProcessor {
     }
 
     public void postQueue(RenderQueue rq) {
-
+        castersList.clear();
         shadowNode.detachAllChildren();
 
-        GeometryList list2 = new GeometryList(new OpaqueComparator());
         for (Spatial scene : vp.getScenes()) {
-            ShadowUtil.getGeometriesInCamFrustum(scene, vp.getCamera(), RenderQueue.ShadowMode.Cast, list2);
+            ShadowUtil.getGeometriesInCamFrustum(scene, vp.getCamera(), RenderQueue.ShadowMode.Cast, castersList);
         }
-//        GeometryList list2 = rq.getShadowQueueContent(RenderQueue.ShadowMode.Cast);
-        for (int i = 0; i < list2.size(); i++) {
-            Geometry g = list2.get(i);
+        for (int i = 0; i < castersList.size(); i++) {
+            Geometry g = castersList.get(i);
             Geometry shadow = getShadow(g);
             shadowNode.attachChild(shadow);
             shadow.setLocalTranslation(g.getWorldTranslation());
