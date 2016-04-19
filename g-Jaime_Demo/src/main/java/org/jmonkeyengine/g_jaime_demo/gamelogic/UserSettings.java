@@ -8,23 +8,28 @@ import java.util.logging.Logger;
  */
 public class UserSettings {
     private static final Logger logger = Logger.getLogger(UserSettings.class.getName());
+    private static UserSettings instance = null;
+
     private Main app;
     private static boolean SHOW_FPS = true;
     private static boolean SHOW_STATS = true;
+    private static float CHARACTER_MAX_SPEED = 2f;
+    private static float CHARACTER_RUN_SPEED = 1f;
 
-    public UserSettings(Main app) {
+    public static UserSettings getInstance() {
+        return instance;
+    }
+
+    public UserSettings (Main app) {
         this.app = app;
+        if (app != null) {
+            UserSettings.instance = this;
+        } else {
+            UserSettings.instance = null;
+        }
     }
 
     public boolean getShowFPS() {
-//        if (app != null) {
-//            StatsAppState statsState = app.getStateManager().getState(StatsAppState.class);
-//            if (statsState != null) {
-//                return statsState.getFpsText().getCullHint().equals(Spatial.CullHint.Never);
-//            }
-//        }
-//        return false;
-
         return UserSettings.SHOW_FPS;
     }
 
@@ -40,14 +45,6 @@ public class UserSettings {
     }
 
     public boolean getShowStats() {
-//        if (app != null) {
-//            StatsAppState statsState = app.getStateManager().getState(StatsAppState.class);
-//            if (statsState != null) {
-//                return statsState.getStatsView().getCullHint().equals(Spatial.CullHint.Never);
-//            }
-//        }
-//        return false;
-
         return UserSettings.SHOW_STATS;
     }
 
@@ -60,6 +57,24 @@ public class UserSettings {
             logger.log(Level.INFO, "App not set. Not applying setting.");
             return false;
         }
+    }
+
+    public float getCharacterMaxSpeed() {
+        return UserSettings.CHARACTER_MAX_SPEED;
+    }
+
+    public boolean setCharacterMaxSpeed(float maxSpeed) {
+        UserSettings.CHARACTER_MAX_SPEED = maxSpeed;
+        return true;
+    }
+
+    public float getCharacterRunSpeed() {
+        return UserSettings.CHARACTER_RUN_SPEED;
+    }
+
+    public boolean setCharacterRunSpeed(float runSpeed) {
+        UserSettings.CHARACTER_RUN_SPEED = runSpeed;
+        return true;
     }
 
 }

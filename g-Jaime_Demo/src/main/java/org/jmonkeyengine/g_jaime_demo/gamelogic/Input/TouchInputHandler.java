@@ -18,6 +18,7 @@ import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
 
 import org.jmonkeyengine.g_jaime_demo.gamelogic.Main;
+import org.jmonkeyengine.g_jaime_demo.gamelogic.UserSettings;
 import org.jmonkeyengine.g_jaime_demo.gamelogic.controls.CustomChaseCamera;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.logging.Logger;
 public class TouchInputHandler extends BaseAppState implements TouchListener {
     private static final Logger logger = Logger.getLogger(TouchInputHandler.class.getName());
 
+    private UserSettings userSettings = null;
     private InputManager inputManager;
     private Node guiNode = null;
     private SelectablePicture dpad = null;
@@ -46,7 +48,6 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
     private Vector3f lookDirection = new Vector3f();
     private Vector3f curWalkDirection = new Vector3f();
     private Vector3f curLookDirection = new Vector3f();
-    private float maxSpeed = 2f;
     private float maxRotation = 1f;
     private float[] camAngles = new float[3];
 
@@ -76,6 +77,7 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
      */
     @Override
     protected void initialize(Application app) {
+        userSettings = UserSettings.getInstance();
         this.inputManager = app.getInputManager();
         this.guiNode = ((Main)app).getGuiNode();
 
@@ -99,6 +101,7 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
             dpad = null;
         }
         app.getInputManager().deleteMapping("TouchInputHandler");
+        userSettings = null;
     }
 
     /**
@@ -135,7 +138,7 @@ public class TouchInputHandler extends BaseAppState implements TouchListener {
         super.update(tpf);
         if (dpad != null && dpad.getActivePointer() != null) {
             curWalkDirection.set(walkDirection);
-            curWalkDirection.multLocal(maxSpeed);
+            curWalkDirection.multLocal(userSettings.getCharacterMaxSpeed());
 
             // create a quat level with the ground
             camera.getCameraRotation().toAngles(camAngles);

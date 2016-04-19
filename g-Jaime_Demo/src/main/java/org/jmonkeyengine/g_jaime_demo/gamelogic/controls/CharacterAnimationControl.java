@@ -11,6 +11,8 @@ import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 
+import org.jmonkeyengine.g_jaime_demo.gamelogic.UserSettings;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,15 +27,7 @@ public class CharacterAnimationControl extends AbstractControl {
     private static final Logger logger = Logger.getLogger(CharacterAnimationControl.class.getName());
     private BetterCharacterControl characterPhysicsControl = null;
     private AnimChannel animChannel = null;
-    private float runSpeed = 1f;
-
-    /**
-     * Set the speed at which the animation control changes from Walk to Run animation.
-     * @param runSpeed Speed at which the animation control changes between Walk and Run.
-     */
-    public void setRunSpeed(int runSpeed) {
-        this.runSpeed = runSpeed;
-    }
+    private UserSettings userSettings = null;
 
     public void setSpatial(Spatial spatial) {
         if (spatial == null) {
@@ -47,6 +41,9 @@ public class CharacterAnimationControl extends AbstractControl {
 
                 animChannel = null;
             }
+
+            // remove reference to user settings
+            userSettings = null;
 
             return;
         }
@@ -110,8 +107,10 @@ public class CharacterAnimationControl extends AbstractControl {
 
     @Override
     protected void controlUpdate(float tpf) {
-
-        if (characterPhysicsControl.getWalkDirection().length() > runSpeed) {
+        if (userSettings == null) {
+            userSettings = UserSettings.getInstance();
+        }
+        if (characterPhysicsControl.getWalkDirection().length() > userSettings.getCharacterRunSpeed()) {
             if (!"Run".equals(animChannel.getAnimationName())) {
                 animChannel.setAnim("Run");
             }

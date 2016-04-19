@@ -21,8 +21,9 @@ import java.util.logging.Logger;
  */
 public class Main extends SimpleApplication implements TouchListener {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    private JmeAndroidInterface android = null;
+
     private UserSettings userSettings = null;
+    private JmeAndroidInterface android = null;
     private AsyncAssetLoader assetLoader = null;
     private SceneDataLoadTask sceneDataLoadTask = null;
 
@@ -38,15 +39,10 @@ public class Main extends SimpleApplication implements TouchListener {
         this.android = android;
     }
 
-    /**
-     * Retrieve the UserSettings instance.
-     * @return
-     */
-    public UserSettings getUserSettings() {
-        return userSettings;
-    }
-
     public void simpleInitApp() {
+        // initialize UserSettings
+        userSettings = new UserSettings(this);
+
         // initialize Lemur for use with UIF objects
         GuiGlobals.initialize(this);
 
@@ -60,10 +56,6 @@ public class Main extends SimpleApplication implements TouchListener {
         getStateManager().attach(assetLoader);
         sceneDataLoadTask = new SceneDataLoadTask();
         assetLoader.addLoadData(sceneDataLoadTask);
-
-        userSettings = new UserSettings(this);
-        setDisplayFps(userSettings.getShowFPS());
-        setDisplayStatView(userSettings.getShowStats());
 
         inputManager.addMapping("touch", new TouchTrigger(TouchInput.ALL));
         inputManager.addListener(this, "touch");

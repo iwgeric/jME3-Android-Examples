@@ -35,6 +35,7 @@ import org.jmonkeyengine.g_jaime_demo.gamelogic.UserSettings;
 public class MainActivity extends AppCompatActivity implements JmeAndroidInterface {
     private static String TAG = "MainActivity";
 
+
     /** Delay time for hiding the System Status Bar and App Toolbar */
     private static int INITIAL_HIDE_DELAY = 3000;
     /** jME Application object */
@@ -435,9 +436,11 @@ public class MainActivity extends AppCompatActivity implements JmeAndroidInterfa
      * When the user returns from the settings screen, we sent the values to jME.
      */
     private void updatePreferences() {
+        // Get the preferences from Android
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
-        UserSettings userSettings = jmeApp.getUserSettings();
+        // Get the UserSettings used by jME app
+        UserSettings userSettings = UserSettings.getInstance();
 
         // get the preference value
         String viewFPSKey = getString(R.string.pref_display_fps_key);
@@ -458,6 +461,27 @@ public class MainActivity extends AppCompatActivity implements JmeAndroidInterfa
         Log.d(TAG, "successStats: " + successStats);
         // If the set was unsuccessful, change the preference to the last value;
         if (!successStats) { editor.putBoolean(viewStatsKey, userSettings.getShowStats()); }
+
+        // get the preference value
+        String maxCharSpeedKey = getString(R.string.pref_max_character_speed_key);
+        float maxCharSpeed = Float.parseFloat(sharedPref.getString(maxCharSpeedKey, "1.0"));
+        Log.d(TAG, "Preference " + maxCharSpeedKey + ": " + maxCharSpeed);
+        // update the jME game logic
+        boolean successMaxCharSpeed = userSettings.setCharacterMaxSpeed(maxCharSpeed);
+        Log.d(TAG, "successMaxCharSpeed: " + successMaxCharSpeed);
+        // If the set was unsuccessful, change the preference to the last value;
+        if (!successMaxCharSpeed) { editor.putFloat(maxCharSpeedKey, userSettings.getCharacterMaxSpeed()); }
+
+        // get the preference value
+        String charRunSpeedKey = getString(R.string.pref_character_run_speed_key);
+        float charRunSpeed = Float.parseFloat(sharedPref.getString(charRunSpeedKey, "1.0"));
+        Log.d(TAG, "Preference " + charRunSpeedKey + ": " + charRunSpeed);
+        // update the jME game logic
+        boolean successCharRunSpeed = userSettings.setCharacterRunSpeed(charRunSpeed);
+        Log.d(TAG, "successCharRunSpeed: " + successCharRunSpeed);
+        // If the set was unsuccessful, change the preference to the last value;
+        if (!successCharRunSpeed) { editor.putFloat(charRunSpeedKey, userSettings.getCharacterRunSpeed()); }
+
     }
 
 }

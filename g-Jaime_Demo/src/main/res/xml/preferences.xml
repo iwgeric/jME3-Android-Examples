@@ -13,4 +13,18 @@
             android:title="@string/pref_display_stats_title"
             android:defaultValue="true"/>
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_display_category_title"
+        android:key="pref_key_storage_settings">
+        <EditTextPreference
+            android:key="pref_key_max_character_speed"
+            android:summary="@string/pref_max_character_speed_summary"
+            android:title="@string/pref_max_character_speed_title"
+            android:digits="0|1|2|3|4|5|6|7|8|9|."/>
+        <EditTextPreference
+            android:key="pref_key_character_run_speed"
+            android:summary="@string/pref_character_run_speed_summary"
+            android:title="@string/pref_character_run_speed_title"
+            android:digits="0|1|2|3|4|5|6|7|8|9|."/>
+    </PreferenceCategory>
 </PreferenceScreen>
