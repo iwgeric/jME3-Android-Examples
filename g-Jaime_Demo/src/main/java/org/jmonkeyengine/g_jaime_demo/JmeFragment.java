@@ -2,6 +2,9 @@ package org.jmonkeyengine.g_jaime_demo;
 
 import com.jme3.app.AndroidHarnessFragment;
 
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+
 /**
  * A placeholder fragment containing a the jME GLSurfaceView.
  */
@@ -45,6 +48,10 @@ public class JmeFragment extends AndroidHarnessFragment {
         //     splashPicID = R.drawable.splash;
 //        splashPicID = 0;
         splashPicID = R.drawable.android_splash;
+
+        // Set the default logging level (default=Level.INFO, Level.ALL=All Debug Info)
+        LogManager.getLogManager().getLogger("").setLevel(Level.INFO);
+
     }
 
 }
