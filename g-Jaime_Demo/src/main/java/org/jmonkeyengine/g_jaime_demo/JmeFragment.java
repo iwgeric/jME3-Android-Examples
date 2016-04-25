@@ -43,7 +43,8 @@ public class JmeFragment extends AndroidHarnessFragment {
         // (default = 0, no splash screen)
         // For example, if the image file name is "splash"...
         //     splashPicID = R.drawable.splash;
-        splashPicID = 0;
+//        splashPicID = 0;
+        splashPicID = R.drawable.android_splash;
     }
 
 }
